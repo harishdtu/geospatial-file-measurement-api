@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    container_name: geospatial-file-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=sqlite:///./geospatial.db
+      - UPLOAD_DIR=/app/data/uploads
+      - PROCESSED_DIR=/app/data/processed
+      - MAX_UPLOAD_SIZE_MB=50
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
